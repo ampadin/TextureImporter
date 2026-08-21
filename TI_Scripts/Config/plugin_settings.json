@@ -1,0 +1,37 @@
+{
+    "masterMaterial":"/Game/Shaders/Materials/M_Master_01.M_Master_01",
+
+    "createORM": true,
+    "importAO": false,
+    "importRoughness":false,
+    "importMetallic": false,
+
+    "flipGreen":false,
+
+    "overwrite":false,
+
+    "saveAssets":true,
+    
+    "supportedExtensions": [
+        ".png",
+        ".tga",
+        ".jpg",
+        ".jpeg",
+        ".tif",
+        ".tiff",
+        ".bmp",
+        ".exr"
+    ],
+
+    "materialParameters": {
+        "BASECOLOR": "A_01",
+        "NORMAL": "N_01",
+        "ORM": "ORM_01",
+        "HEIGHT": "H_01"
+    },
+
+    "createMaterialInstance": true,
+
+    "textureDestination":"/Game/Shaders/Textures",
+    "materialDestination": "/Game/Shaders/Materials"
+}

@@ -1,0 +1,52 @@
+{
+  "BaseColor": [
+    "basecolor",
+    "albedo",
+    "diffuse",
+    "color",
+    "bc",
+    "a",
+    "d"
+  ],
+
+  "Normal": [
+    "normal",
+    "normalmap",
+    "nor",
+    "nrm",
+    "n"
+  ],
+
+  "ORM": [
+    "orm",
+    "arm"
+  ],
+   "Height": [
+    "height",
+    "displacement",
+    "h"
+  ],
+  
+  "AO": [
+    "ambientocclusion",
+    "ao"
+  ],
+  "Roughness": [
+    "roughness",
+    "r",
+    "rough"
+  ],
+  "Metallic": [
+    "metallic",
+    "m"
+  ],
+  "Opacity": [
+    "opacity",
+    "alpha",
+    "o"
+  ],
+  "Emissive": [
+    "emissive",
+    "e"
+  ]
+}

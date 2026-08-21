@@ -1,0 +1,16 @@
+{
+    "prefix":"T_",
+
+    "suffixes":
+    {
+        "BaseColor":"A",
+        "Normal":"N",
+        "ORM":"ORM",
+        "AO":"AO",
+        "Roughness":"R",
+        "Metallic":"M",
+        "Height":"H",
+        "Opacity": "O",
+        "Emissive":"E"
+    }
+}
