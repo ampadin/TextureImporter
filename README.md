@@ -65,6 +65,7 @@ Generated ORM textures are written to a _Generated subfolder inside the selected
    Keep the widget asset inside the plugin's own Content folder.
 
 ## Project structure
+```
 TextureImporter/
 ├── Content/
 │   └── Python/
@@ -88,7 +89,7 @@ TextureImporter/
 │       ├── editor_api.py          # thin, Blueprint-friendly wrapper functions
 │       └── ti_blueprint_library.py # exposes editor_api functions as Blueprint nodes
 └── TextureImporter.uplugin
-
+```
 ## Configuration
 All behavior is controlled through the three JSON files in `TI_Scripts/Config/`.
 
