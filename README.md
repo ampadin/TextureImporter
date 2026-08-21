@@ -94,6 +94,7 @@ TextureImporter/
 All behavior is controlled through the three JSON files in `TI_Scripts/Config/`.
 
 **`plugin_settings.json`** 		# default paths and import options:
+```
 {
     "masterMaterial": "/Game/Shaders/Materials/M_Master_01.M_Master_01",
     "createORM": true,
@@ -113,23 +114,27 @@ All behavior is controlled through the three JSON files in `TI_Scripts/Config/`.
     "textureDestination": "/Game/Shaders/Textures",
     "materialDestination": "/Game/Shaders/Materials"
 }
+```
 -> `materialParameters` maps a texture type to the name of the corresponding texture
     parameter on your Master Material — only types listed here get assigned when a
     Material Instance is created.
 
 **`naming_rules.json`**    #controls the destination asset name (`T_<Material>_<Suffix>`):
+```
 {
     "prefix": "T_",
     "suffixes": { "BaseColor": "A", "Normal": "N", "ORM": "ORM", "Height": "H", ... }
 }
-
+```
 
 **`texture_rules.json`**   #controls how a filename maps to a texture type.		    
+```
 {
     "BaseColor": ["basecolor", "albedo", "diffuse", "color", "bc", "a", "d"],
     "Normal": ["normal", "normalmap", "nor", "nrm", "n"],
     ...
 }
+```
 -> Single-character aliases (`a`, `n`, `r`, `m`, `h`...) are convenient but can
    collide with each other on ambiguous filenames. If you rely on short suffixes,
    test your naming convention against the detector before trusting it on a large
