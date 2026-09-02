@@ -42,8 +42,8 @@ class Scanner:
                 job.warnings.append(f"Unknown texture type: {file.name}")
                 continue
 
-            """if job.has(texture_type):             #Prevent overwriting a texture of the same type -> NOT enabled
-                continue"""
+            #if job.has(texture_type):  continue          #Prevent overwriting a texture of the same type -> NOT enabled
+              
 
             # Create and name the texture
             texture = self._create_texture(file, texture_type)

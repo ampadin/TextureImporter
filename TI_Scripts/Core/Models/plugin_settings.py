@@ -9,6 +9,8 @@ class PluginSettings:
     import_ao: bool
     import_roughness: bool
     import_metallic: bool
+    import_emissive: bool
+    import_opacity:bool
     
     flip_green: bool
     overwrite: bool

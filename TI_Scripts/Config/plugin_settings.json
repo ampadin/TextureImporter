@@ -5,6 +5,8 @@
     "importAO": false,
     "importRoughness":false,
     "importMetallic": false,
+    "importOpacity": true,
+    "importEmissive": true,
 
     "flipGreen":false,
 
@@ -24,10 +26,10 @@
     ],
 
     "materialParameters": {
-        "BASECOLOR": "A_01",
-        "NORMAL": "N_01",
-        "ORM": "ORM_01",
-        "HEIGHT": "H_01"
+        "BASECOLOR": "COLOR",
+        "NORMAL": "NORMALMAP",
+        "ORM": "ORM",
+        "HEIGHT": "HEIGHT"
     },
 
     "createMaterialInstance": true,

@@ -19,6 +19,7 @@ class CompressionType(Enum):
     MASK = auto()
     DISPLACEMENT = auto()
     GRAYSCALE = auto()
+    ALPHA = auto()
 
 
 TEXTURE_SETTINGS =  {
@@ -40,7 +41,7 @@ TEXTURE_SETTINGS =  {
     },
     TextureType.OPACITY:{ 
         "srgb": False,
-        "compression": CompressionType.MASK 
+        "compression": CompressionType.ALPHA 
     },
     TextureType.EMISSIVE:{ 
         "srgb": True,
