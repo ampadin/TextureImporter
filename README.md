@@ -8,7 +8,7 @@ Utility Widget.
 
 Designed to automate a repetitive texture import workflow and to demonstrate a clean separation between engine‑agnostic logic and Unreal‑specific integration.
 
-![Gif Example](https://dri.me/VDMbqn4TjzOgGOXBnXrnQd8EWwDYD0)
+![Gif Example](https://imgur.com/a/VFYluUc)
 
 ## Index
 1. [Why this exists](#why-this-exists)
