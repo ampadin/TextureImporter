@@ -29,7 +29,7 @@ class ORMBuilder:
             self.default_orm_warning_reported = False           #so it only happens once
         else: 
             self.default_orm_warning = "Default ORM not found. Creating fallback texture"
-            self.default_orm = Image.new("RGB", (512, 512), (255, 128, 0))  # AO=255, Rough=128, Metal=0 , ccreated when the resource file doesn't exist
+            self.default_orm = Image.new("RGB", (512, 512), (255, 128, 0))  # AO=255, Rough=128, Metal=0 , created when the resource file doesn't exist
             self.default_orm_warning_reported = False
 
         self._default_orm_disk_path: Path| None = None
@@ -168,13 +168,14 @@ class ORMBuilder:
             return image
         try:
             return image.resize(target_size, Image.Resampling.LANCZOS)
-        except AttributeError:                                              #Error in case of compatibility issiue with older versions of PILLOW
+        except AttributeError:                                              #Error in case of compatibility issues with older versions of PILLOW
             return image.resize(target_size, Image.LANCZOS)
 
 
     def _get_reference_size(self, task: ORMTask) -> tuple[int,int]:
-        """ Obtener el tamaño de la primera textura disponible.Prioridad: AO Roughness Metallic
-            Si ninguna existe, usar el tamaño de Default ORM. """
+        """ Returns the size of the first available texture, in priority order AO -> Roughness -> Metallic.
+            Falls back to the default ORM's size if none are available. """
+        
         for texture in (task.ao, task.roughness, task.metallic):
             if texture is None:
                 continue

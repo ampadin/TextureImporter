@@ -7,14 +7,27 @@ from TI_Scripts.Core.Models.import_options import ImportOptions
 
 from TI_Scripts.Core.Python.settings import SettingsManager
 
-#  Mapa CORE -> UNREAL
+#  CORE -> UNREAL Compession map
+#
+# Adding a new TextureType (e.g. a new channel or map type) usually only requires touching Core/Models/enums.py 
+# (add the enum member + a TEXTURE_SETTINGS entry using one of the CompressionType values below) plus the aliases in texture_rules.json / naming_rules.json
+#  — this map does NOT need to change for that.
+# Only add a new entry here if you also introduced a brand-new CompressionType in enums.py that doesn't map to an existing Unreal compression setting.
 UNREAL_COMPRESSION_MAP = {
     CompressionType.DEFAULT : unreal.TextureCompressionSettings.TC_DEFAULT,
     CompressionType.NORMAL: unreal.TextureCompressionSettings.TC_NORMALMAP,
     CompressionType.MASK: unreal.TextureCompressionSettings.TC_MASKS,
     CompressionType.DISPLACEMENT: unreal.TextureCompressionSettings.TC_DISPLACEMENTMAP,
     CompressionType.GRAYSCALE : unreal.TextureCompressionSettings.TC_GRAYSCALE,
+    CompressionType.ALPHA: unreal.TextureCompressionSettings.TC_ALPHA,
 }
+
+_missing_compression_types = set(CompressionType) - set(UNREAL_COMPRESSION_MAP)
+if _missing_compression_types:
+    raise RuntimeError( f"ERROR: importer.py-> UNREAL_COMPRESSION_MAP is missing entries for: "f"{[c.name for c in _missing_compression_types]}"
+    )
+
+
 def _get_unreal_texture_settings(texture_type):
         data = TEXTURE_SETTINGS[texture_type]
         return {
@@ -46,6 +59,8 @@ class Importer:
         if options.import_ao: allowed_types.add(TextureType.AO)
         if options.import_roughness: allowed_types.add(TextureType.ROUGHNESS)
         if options.import_metallic: allowed_types.add(TextureType.METALLIC)
+        if options.import_opacity: allowed_types.add(TextureType.OPACITY)
+        if options.import_emissive: allowed_types.add(TextureType.EMISSIVE)
 
         # More options can be added here
 
@@ -99,7 +114,7 @@ class Importer:
             return
         
         texture.imported = True
-        self._configure_texture(job, texture, asset)                    # configure the texture as required
+        self._configure_texture(job, texture, asset,options)                    # configure the texture as required
 
 
     def _build_import_task(self, destination_path: str, job: MaterialJob,texture: TextureAsset, options: ImportOptions) -> unreal.AssetImportTask:
@@ -115,7 +130,7 @@ class Importer:
         return task
 
 
-    def _configure_texture(self, job: MaterialJob, texture: TextureAsset, asset: unreal.Texture):
+    def _configure_texture(self, job: MaterialJob, texture: TextureAsset, asset: unreal.Texture, options:ImportOptions):
         config = TEXTURE_SETTINGS.get(texture.texture_type)
 
         if config is None:
@@ -127,8 +142,10 @@ class Importer:
             asset.set_editor_property("srgb", unreal_settings["srgb"])                                #Configurar srgb
             asset.set_editor_property("compression_settings", unreal_settings["compression"])         #Configurar compresion
 
-            if texture.texture_type == TextureType.NORMAL and self.settings.flip_green:     #Configurar flip green en normales segun configuracion
-                asset.set_editor_property("flip_green_channel",True)
+            if texture.texture_type == TextureType.NORMAL:     #Configurar flip green en normales segun configuracion
+                asset.set_editor_property("flip_green_channel",options.flip_green)
+                if options.flip_green:
+                    job.warnings.append(f"Green channel flipped for texture '{texture.dest_name}' as requested.")
 
             if self.settings.save_assets:
                 unreal.EditorAssetLibrary.save_loaded_asset(asset)              #auto-saves the texture if configured to do so

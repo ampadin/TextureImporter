@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Unreal Engine
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+*.VC.db
+*.opendb
+
+# IDE
+.vs/
+.vscode/
+*.sln
+*.suo
+
+# OS
+.DS_Store
+Thumbs.db

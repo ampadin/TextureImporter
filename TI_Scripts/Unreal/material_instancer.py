@@ -2,6 +2,7 @@ import unreal
 
 from TI_Scripts.Core.Models.material_job import MaterialJob
 from TI_Scripts.Core.Models.enums import TextureType
+from TI_Scripts.Core.Models.import_options import ImportOptions
 
 from TI_Scripts.Core.Python.naming import NamingManager
 from TI_Scripts.Core.Python.settings import SettingsManager
@@ -13,7 +14,7 @@ class MaterialInstanceBuilder:
         self.settings = settings
         self.naming = naming
 
-    def process(self, job:MaterialJob):
+    def process(self, job:MaterialJob, options:ImportOptions)-> MaterialJob:
         package_path = job.material_destination or self.settings.material_destination
         if not package_path: 
             job.processing_errors.append("material destination not defined")
@@ -54,7 +55,7 @@ class MaterialInstanceBuilder:
             job.processing_errors.append(f"Cannot create Material Instance: {e}")
             return job
 
-        self._assign_textures(job, instance)
+        self._assign_textures(job, options, instance)
 
         if self.settings.save_assets:
             unreal.EditorAssetLibrary.save_loaded_asset(instance)
@@ -65,12 +66,15 @@ class MaterialInstanceBuilder:
         if directory and not unreal.EditorAssetLibrary.does_directory_exist(directory):
             unreal.EditorAssetLibrary.make_directory(directory)
     
-    def _assign_textures( self, job: MaterialJob, instance:unreal.MaterialInstanceConstant):
+    def _assign_textures( self, job: MaterialJob,options: ImportOptions, instance:unreal.MaterialInstanceConstant):
                 
         library = unreal.MaterialEditingLibrary()
         
-        for texture_type, texture in job.textures.items():
-            parameter = self.settings.material_parameters.get(texture_type)
+        material_parameters = (options.material_parameters if options.material_parameters is not None else self.settings.material_parameters) #once per calculation
+
+        for texture_type, texture in job.textures.items():  
+            parameter = material_parameters.get(texture_type)
+
             if parameter is None:
                 continue
 

@@ -1,0 +1,59 @@
+{"parameterAliases":{
+    "BaseColor": [
+        "basecolor",
+        "albedo",
+        "a01",
+        "color",
+        "bc",
+        "diffuse"
+    ],
+
+    "Normal": [
+        "normal",
+        "normalmap",
+        "nrm",
+        "n01"
+    ],
+
+    "ORM": [
+        "orm",
+        "arm",
+        "occlusionroughnessmetallic",
+        "orm01"
+    ],
+    "Height": [
+        "height",
+        "displacement",
+        "heightmap",
+        "h01"
+    ],
+    
+    "AO": [
+        "ambientocclusion",
+        "ao"
+    ],
+    "Roughness": [
+        "roughness",
+        "rough"
+    ],
+    "Metallic": [
+        "metallic",
+        "metalness"
+    ],
+    "Opacity": [
+        "opacity",
+        "alpha",
+        "o"
+    ],
+    "Emissive": [
+        "emissive",
+        "e"
+    ]
+},
+
+"parameterPrefixes":[ 
+   "texture",
+    "tex",
+    "t"
+    ]
+}
